@@ -10,7 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
+
+from dotenv import load_dotenv
+
+env_file_exists = load_dotenv(override=True)
+
+if not env_file_exists:
+  raise FileNotFoundError("`.env` file does not exists")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +28,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7x-87y4^5yi3$$j-2f^c5wzc&awyt=77*0jf*9%6_!8+j6(5kf'
+SECRET_KEY = os.environ['DJANGO_SECRET']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ['DJANGO_DEBUG'])
 
 ALLOWED_HOSTS = []
 
@@ -75,8 +83,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+      'ENGINE': os.environ['DJANGO_DB_ENGINE'],
+      'NAME': os.environ['DB_NAME'],
+      'USER': os.environ['DB_USER'],
+      'PASSWORD': os.environ['DB_PASSWORD'],
+      'HOST': os.environ['DB_HOST'],
+      'PORT': os.environ['DB_PORT'],
     }
 }
 
