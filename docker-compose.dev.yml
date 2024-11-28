@@ -1,0 +1,21 @@
+services:
+  database:
+    image: postgres:14
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./docker/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=1Qwerty
+  
+  dbadmin:
+    image: dpage/pgadmin4:8
+    restart: always
+    ports:
+      - 8082:80
+    volumes:
+      - ./docker/pgadmin:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=a.pankrashov@md.ru
+      - PGADMIN_DEFAULT_PASSWORD=1Qwerty
