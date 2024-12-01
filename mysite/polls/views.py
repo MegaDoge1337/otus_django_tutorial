@@ -1,17 +1,35 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.db.models import F
+from django.urls import reverse
 
-from .models import Question
+from .models import Question, Choice
 
 def detail(request: HttpRequest, question_id: int) -> HttpResponse:
   question = get_object_or_404(Question, pk=question_id)
   return render(request, "polls/detail.html", {"question": question})
 
 def results(request: HttpRequest, question_id: int) -> HttpResponse:
-  return HttpResponse(f"You're looking at the results of question {question_id}")
+  question = get_object_or_404(Question, pk=question_id)
+  return render(request, "polls/results.html", {"question": question})
 
-def vote(request: HttpRequest, question_id: int) -> HttpResponse:
-  return HttpResponse(f"You're voting on question {question_id}")
+def vote(request: HttpRequest, question_id: int) -> HttpResponse | HttpResponseRedirect:
+  question = get_object_or_404(Question, pk=question_id)
+  try:
+    selected_choice = question.choice_set.get(pk=request.POST["choice"])
+  except (KeyError, Choice.DoesNotExist):
+    return render(
+      request, 
+      "polls/detail.html", 
+      {
+        "question": question, 
+        "error_message": "You didn't select choice"
+      }
+    )
+  else:
+    selected_choice.votes = F("votes") + 1
+    selected_choice.save()
+    return HttpResponseRedirect(reverse("polls:results", args=(question_id,)))
 
 def index(request: HttpRequest) -> HttpResponse:
   latest_question_list = Question.objects.order_by("-pub_date")[:5]
