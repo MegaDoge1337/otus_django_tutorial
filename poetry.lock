@@ -100,20 +100,6 @@ files = [
 ]
 
 [[package]]
-name = "python-dotenv"
-version = "1.0.1"
-description = "Read key-value pairs from a .env file and set them as environment variables"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "python-dotenv-1.0.1.tar.gz", hash = "sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca"},
-    {file = "python_dotenv-1.0.1-py3-none-any.whl", hash = "sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a"},
-]
-
-[package.extras]
-cli = ["click (>=5.0)"]
-
-[[package]]
 name = "sqlparse"
 version = "0.5.2"
 description = "A non-validating SQL parser."
@@ -142,4 +128,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "8f43806ee7c05f2294a911f402eab6613f39f9fa0d85e8616737aa89953b9d8c"
+content-hash = "804f7e94449f2b68d3fc28fe21ff48f41cc2091f50213e17451a791ed7da8477"

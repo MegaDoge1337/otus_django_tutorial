@@ -1,1 +1,0 @@
-CREATE DATABASE otus_django_tutorial2;
