@@ -33,16 +33,12 @@ SECRET_KEY = os.environ['DJANGO_SECRET']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ['DJANGO_DEBUG'] == 'True'
 
-ALLOWED_HOSTS = ['*']
-
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
+ALLOWED_HOSTS = os.environ['DJANGO_ALLOWED_HOSTS'].split(",")
 
 # Application definition
 
 INSTALLED_APPS = [
-    'debug_toolbar',
+    # 'debug_toolbar',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -53,7 +49,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -139,7 +135,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-DEBUG_TOOLBAR_CONFIG = {
-  'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
-}
