@@ -165,3 +165,5 @@ staticfiles
 
 .env.dev
 .env.prod
+
+.ruff_cache

@@ -1,13 +1,12 @@
-import datetime
-
 from django.contrib import admin
-from django.utils import timezone
 
-from .models import Question, Choice
+from .models import Choice, Question
+
 
 class ChoiceInline(admin.TabularInline):
     model = Choice
     extra = 3
+
 
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
