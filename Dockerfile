@@ -22,8 +22,6 @@ WORKDIR /app
 
 COPY . /app
 
-RUN rm -rf /app/.venv
-
 RUN poetry install
 
 WORKDIR /app/mysite
